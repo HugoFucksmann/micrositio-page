@@ -1,0 +1,14 @@
+.btnTab {
+  background-color: transparent;
+}
+
+.btnTab:active {
+  border-bottom: red;
+}
+.btnTab:hover {
+  border-bottom: green;
+}
+
+.btnTab:focus {
+  border-bottom: purple;
+}
