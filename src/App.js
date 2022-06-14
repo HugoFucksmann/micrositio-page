@@ -1,13 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
-import Curso from './curso';
+import logo from './logo.svg'
+import './App.css'
+import Curso from './curso'
 
 function App() {
-  return (
-    <div >
-    <Curso/>
-    </div>
-  );
+  return <Curso />
 }
 
-export default App;
+export default App

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { colores } from './theme'
+import { colores, txtSize } from './theme'
 import './styles.css'
 import BannerLayout from './bannerLayout'
 import FormularioInsc from './formularioInsc'
@@ -11,9 +11,14 @@ import tasks from './images/tasks.png'
 import timeleft from './images/time-left.png'
 import exam from './images/exam.png'
 
+const isMobile = () => {
+  if (window.innerWidth < 350) return true
+  else return false
+}
+
 const Curso = () => {
   return (
-    <>
+    <div style={{ width: '100vw', overflowX: 'hidden' }}>
       <div style={{ textAlign: 'center', height: '8vh', marginBottom: 40 }}>
         header
       </div>
@@ -22,11 +27,12 @@ const Curso = () => {
         <CursoBody />
         {/*  <FormularioInsc/> */}
       </LayoutBody>
-    </>
+    </div>
   )
 }
 
 const LayoutBody = (props) => {
+  if (isMobile()) return <>{props.children}</>
   return (
     <div style={{ marginRight: '6vw', marginLeft: '8vw' }}>
       {props.children}
@@ -36,20 +42,28 @@ const LayoutBody = (props) => {
 
 const CursoBody = () => {
   return (
-    <div class="container m-5">
+    <div class="container">
       <div class="row">
-        <div class="col-7">
+        <div class="col-sm-12 col-md-7">
           <img
             style={{ width: '100%', height: 'auto' }}
             alt="formimg"
             src={cursoimg}
           />
-          <div className="mt-4">
-            <Tabs />
+        </div>
+        <div class="col-sm-12 col-md-3 ">
+          <ItemList />
+          <div style={{ display: 'flex', marginTop: 15 }}>
+            <button
+              type="button"
+              class="btn btn-outline-secondary m-auto w-100"
+            >
+              Iniciar examen
+            </button>
           </div>
         </div>
-        <div class="col-5">
-          <ItemList />
+        <div class="col-sm-12 col-md-7">
+          <Tabs />
         </div>
       </div>
     </div>
@@ -63,14 +77,25 @@ const ItemList = () => {
         border: `2px solid ${colores.borders}`,
         borderRadius: 10,
         paddingTop: 15,
-        width: 260,
+        // width: '20vw',
+        fontSize: txtSize.s,
+        margin: 'auto',
       }}
     >
-      <div style={{ textAlign: 'center', marginBottom: 40 }}>info de curso</div>
+      <div style={{ textAlign: 'center', marginBottom: 30 }}>info de curso</div>
       <ul style={{ listStyleType: 'none' }}>
         {items.map((data) => (
-          <li style={{ marginBottom: 35 }}>
-            <img alt="iconitem" src={data.icon} className="e-2" />
+          <li
+            style={{
+              marginBottom: 35,
+            }}
+          >
+            <img
+              alt="iconitem"
+              src={data.icon}
+              className="e-2"
+              style={{ width: '2.1vw' }}
+            />
             <span style={{ marginLeft: 10 }}> {data.txt}</span>
           </li>
         ))}
@@ -81,10 +106,10 @@ const ItemList = () => {
 
 const Tabs = () => {
   return (
-    <div style={{ marginTop: 20 }}>
+    <div>
       <ul class="nav nav-pills nav-fill" id="pills-tab" role="tablist">
         {tabs.map((data, i) => (
-          <li class="nav-item m-4" role="presentation">
+          <li class="nav-item mb-4 mt-2" role="presentation">
             <button
               class={`nav-link  ${i === 0 && 'active'}`}
               id={`pill-${data.title}`}
@@ -100,15 +125,27 @@ const Tabs = () => {
           </li>
         ))}
       </ul>
+
       <div class="tab-content" id="pills-tabContent">
         {tabs.map((data, i) => (
           <div
             class={`tab-pane fade show ${i === 0 && 'active'}`}
+            style={{ height: '80vh' }}
             id={data.title}
             role="tabpanel"
             aria-labelledby={`#pill-${data.title}`}
           >
-            {data.content}
+            <iframe
+              frameborder="0"
+              src={data.iframe}
+              style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                border: '2px solid #f2f2f2',
+                borderRadius: 6,
+              }}
+            />
           </div>
         ))}
       </div>
@@ -117,9 +154,13 @@ const Tabs = () => {
 }
 
 const tabs = [
-  { title: 'info', content: 'texto de la info' },
-  { title: 'modulos', content: 'texto de la modulos' },
-  { title: 'actividades', content: 'texto de la actividades' },
+  {
+    title: 'info',
+    content: 'texto de la info',
+    iframe: 'https://sandbox.pent.org.ar/masculinidades2-spotlight/102',
+  },
+  { title: 'modulos', content: 'texto de la modulos', iframe: '' },
+  { title: 'actividades', content: 'texto de la actividades', iframe: '' },
 ]
 
 const items = [

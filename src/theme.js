@@ -16,3 +16,12 @@ export const colores = {
   txt: '#616368',
   item: '#8e0c81',
 }
+
+export const txtSize = {
+  xxl: '',
+  xl: '3.5vw',
+  l: '',
+  m: '',
+  s: '1.2vw',
+  xs: '',
+}
